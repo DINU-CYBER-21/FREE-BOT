@@ -1,210 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FREEDOM MINI BOT</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-* {margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
-
-body {
-  background: black;
-  color: white;
-  text-align: center;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-body::before {
-  content:"";
-  position:fixed;
-  top:0; left:0; right:0; bottom:0;
-  background: transparent;
-  z-index:-1;
-}
-
-canvas {
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  z-index:-1;
-}
-
-header {
-  padding:25px 15px;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  box-shadow:0px 4px 25px rgba(0,0,0,0.8);
-  border-bottom:2px solid cyan;
-}
-
-header h1 {
-  font-size:2.2em;
-  color:#00f7ff;
-  text-shadow:0px 0px 15px #00f7ff,0px 0px 30px #00f7ff;
-  animation: glow 2s infinite alternate;
-}
-
-header p {
-  margin-top:6px;
-  font-size:1em;
-  color:#ddd;
-}
-
-@keyframes glow {
-  from{ text-shadow:0px 0px 10px #00f7ff;}
-  to{ text-shadow:0px 0px 25px #00f7ff;}
-}
-
-.pair-img {
-  width:160px;
-  border-radius:25px;
-  margin:20px auto;
-  display:block;
-  box-shadow:0 0 30px rgba(0,255,255,0.7);
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-
-.pair-button {
-  display:inline-block;
-  padding:12px 22px;
-  margin:10px 5px;
-  border-radius:35px;
-  font-weight:bold;
-  text-decoration:none;
-  color:#fff;
-  transition: all 0.3s ease;
-  box-shadow:0 0 18px rgba(0,0,0,0.6);
-  position:relative;
-  overflow:hidden;
-  font-size:0.95em;
-}
-
-.pair-button::before {
-  content:"";
-  position:absolute;
-  top:-50%; left:-50%;
-  width:200%; height:200%;
-  background:radial-gradient(circle, rgba(255,255,255,0.25) 10%, transparent 10.01%);
-  transform: translate(-50%,-50%) rotate(25deg);
-  transition: opacity 0.4s;
-  opacity:0;
-}
-
-.pair-button:hover::before {
-  opacity:1;
-  animation:ripple 1s linear infinite;
-}
-
-@keyframes ripple {0%{transform: translate(-50%,-50%) scale(0.8) rotate(25deg);}100%{transform: translate(-50%,-50%) scale(2.5) rotate(25deg);}}
-
-.blue-btn {background: linear-gradient(45deg,#007bff,#00d4ff);}
-.purple-btn {background: linear-gradient(45deg,#8e2de2,#4a00e0);}
-
-.main-content {padding:25px 15px;}
-.info-card {
-  background: rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:15px;
-  margin:20px auto;
-  max-width:700px;
-  box-shadow:0 0 22px rgba(0,255,255,0.25);
-  transition: transform 0.3s;
-}
-.info-card:hover {transform: scale(1.02);}
-.card-title {font-size:1.5em;margin-bottom:12px;color:#00f7ff;text-shadow:0 0 10px #00f7ff;}
-
-.helpers-list {display:flex;flex-wrap:wrap;justify-content:center;gap:15px;list-style:none;padding:0;}
-.helper-card {
-  background: rgba(255,255,255,0.08);
-  border-radius:15px;
-  padding:15px;
-  width:130px;
-  text-align:center;
-  box-shadow:0 0 18px rgba(0,255,255,0.25);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor:pointer;
-}
-.helper-card:hover {
-  transform: rotateY(10deg) scale(1.05);
-  box-shadow: 0 0 28px rgba(0,255,255,0.7);
-}
-.helper-card img {
-  width:75px;height:75px;border-radius:50%;margin-bottom:8px;border:2px solid #00f7ff;
-  box-shadow:0 0 18px rgba(0,255,255,0.7);
-}
-.helper-name{font-weight:bold;font-size:1em;margin:5px 0;}
-.helper-role{font-size:0.85em;color:#aaa;}
-footer{margin-top:35px;padding:15px;font-size:0.85em;background: rgba(0,0,0,0.7);color:#bbb;border-top:2px solid cyan;}
-
-
-@media screen and (max-width:768px){
-  .pair-button{padding:10px 18px;font-size:0.9em;}
-  .pair-img{width:140px;}
-  .helper-card{width:120px;padding:12px;}
-  .helper-card img{width:70px;height:70px;}
-  .card-title{font-size:1.4em;}
-}
-
-@media screen and (max-width:480px){
-  header h1{font-size:1.8em;}
-  header p{font-size:0.9em;}
-  .pair-button{padding:8px 16px;font-size:0.85em;margin:6px 3px;}
-  .pair-img{width:120px;}
-  .helper-card{width:100px;padding:10px;}
-  .helper-card img{width:60px;height:60px;}
-  .card-title{font-size:1.2em;}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FREEDOM MINI BOT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+ 
+    .header-hidden {
+      transform: translateY(-100%);
+      transition: transform 0.4s ease-in-out;
+    }
+    .header-visible {
+      transform: translateY(0);
+      transition: transform 0.4s ease-in-out;
+    }
+    
+    #musicBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-gradient-to-r from-indigo-900 via-purple-900 to-black text-white">
 
-<header>
-  <h1>FREEDOM-MINI-BOT</h1>
-  <p>The Most Active Mini Bot In Sri Lanka</p>
-  <p>Created By Mr. Dinujaya - Shagi</p>
+
+<audio id="bg-music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+</audio>
+
+
+<button id="musicBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-800 rounded-full shadow-lg text-white text-sm transition">
+  🔇 Music Off
+</button>
+
+
+<header id="mainHeader" class="backdrop-blur-lg sticky top-0 z-50 header-visible">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 bg-black/30 shadow-md rounded-b-2xl border-b border-purple-600/30">
+    
+    <h1 class="text-xl md:text-2xl font-extrabold text-purple-400 drop-shadow tracking-wide">
+      FREEDOM MINI V2
+    </h1>
+    
+    <nav class="flex space-x-5 text-sm md:text-base font-medium">
+      <a href="#about" class="text-gray-300 hover:text-purple-400 transition hover:drop-shadow-[0_0_8px_#a855f7]">About</a>
+      <a href="#helpers" class="text-gray-300 hover:text-purple-400 transition hover:drop-shadow-[0_0_8px_#a855f7]">Helpers</a>
+      <a href="#support" class="text-gray-300 hover:text-purple-400 transition hover:drop-shadow-[0_0_8px_#a855f7]">Support</a>
+    </nav>
+  </div>
 </header>
 
-<img src="https://i.ibb.co/qL201B1x/IMG-20250903-WA0176.jpg" alt="Pair Image" class="pair-img">
+ 
+  <section class="text-center py-16 px-6 animate-fadeInUp">
+    <h2 class="text-4xl md:text-6xl font-bold text-purple-400 animate-pulse">FREEDOM MINI BOT</h2>
+    <p class="mt-4 text-lg md:text-xl text-gray-300">The most active mini bot in Sri Lanka.</p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="https://dinu-3ab31409578e.herokuapp.com/"
+         class="px-6 py-3 bg-purple-600 hover:bg-purple-800 rounded-xl shadow-lg hover:scale-105 transition transform">
+        🔗 PAIR 01
+      </a>
+      <a href="https://dinu-3ab31409578e.herokuapp.com/"
+         class="px-6 py-3 bg-indigo-600 hover:bg-indigo-800 rounded-xl shadow-lg hover:scale-105 transition transform">
+        🔗 PAIR 02
+      </a>
+    </div>
+  </section>
 
-<a href="https://freedom-895fd10acce1.herokuapp.com/" class="pair-button blue-btn">PAIR 01</a>
-<a href="https://freedom-895fd10acce1.herokuapp.com/" class="pair-button blue-btn">PAIR 02</a>
+  
+  <section id="about" class="py-16 px-6 bg-black/40 backdrop-blur-md">
+    <h2 class="text-3xl font-bold text-purple-400 text-center mb-8">💬 About</h2>
+    <div class="max-w-3xl mx-auto text-center text-gray-300 leading-relaxed">
+      <p class="mb-4">I am <span class="font-bold text-purple-400">FREEDOM MINIBOT</span>, the most active and efficient mini bot for Sri Lankan users.</p>
+      <p>I help users with various tasks while maintaining <span class="font-semibold text-indigo-400">high performance and reliability</span>.</p>
+    </div>
+  </section>
 
-<div class="main-content">
-  <div class="info-card">
-    <h2 class="card-title">💬 CYBER FREEDOM MINI BOT</h2>
-    <p>I am <strong>FREEDOM - MD - MINI BOT</strong>, the most active and efficient mini bot designed specifically for Sri Lankan users. Built with advanced features and constant updates to provide the best user experience.</p>
-  </div>
+  
+  <section id="helpers" class="py-16 px-6">
+    <h2 class="text-3xl font-bold text-indigo-400 text-center mb-10">👥 Our Helpers</h2>
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">SULA MD<span class="text-purple-300"></div>
+        <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">PODDA<span class="text-purple-300"></div> 
+          <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">DINA<span class="text-purple-300"></div>
+            <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">QUEEN ANJU<span class="text-purple-300"></div>
+               <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">UD MODZ<span class="text-purple-300"></div> 
+                   <div class="p-6 bg-purple-800/40 rounded-2xl shadow-lg card">SHAGI<span class="text-purple-300"></div>
+    </div>
+  </section>
 
-  <div class="info-card">
-    <h2 class="card-title">👥 OUR HELPERS</h2>
-    <ul class="helpers-list">
-      <li class="helper-card"><img src="https://i.ibb.co/jZktTq1b/SulaMd.jpg" alt="SULA"><div class="helper-name">SULA-MD</div><div class="helper-role">Dtz Owner</div></li>
-      <li class="helper-card"><img src="https://files.catbox.moe/a2cgmt.jpg" alt="DINA"><div class="helper-name">CRAZY DINA</div><div class="helper-role">DTZ OWNER</div></li>
-      <li class="helper-card"><img src="https://files.catbox.moe/k5b83k.jpg" alt="RASHMIKA"><div class="helper-name">RASHMIKA</div><div class="helper-role">QUEEN ANJU PRO OWN</div></li>
-      <li class="helper-card"><img src="https://files.catbox.moe/ggiuq9.jpg" alt="UD-MODZ"><div class="helper-name">UD-MODZ</div><div class="helper-role">UD MODZ OWNER</div></li>
-      <li class="helper-card"><img src="https://files.catbox.moe/rc40gq.jpg" alt="SHAGI"><div class="helper-name">SHAGI</div><div class="helper-role">FREEDOM 2OWN</div></li>
-    </ul>
-  </div>
-</div>
 
-<a href="https://whatsapp.com/channel/0029Vb6gcq74NVij8LWJKy1D" class="pair-button purple-btn">SUPPORT CHANNEL</a>
-<a href="https://chat.whatsapp.com/IZ5klCZ038yEx4aoy6Be2y?mode=ems_share_c" class="pair-button purple-btn">SUPPORT GROUP</a>
+  <section id="support" class="py-16 px-6 bg-black/50 backdrop-blur-lg">
+    <h2 class="text-3xl font-bold text-purple-400 text-center mb-8">📞 Support</h2>
+    <div class="flex justify-center gap-6">
+      <a href="https://wa.me/94740026280"
+         class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl shadow-lg hover:scale-105 transition transform">
+        📢 SUPPORT OWN
+      </a>
+      <a href="https://whatsapp.com/channel/0029Vb6gcq74NVij8LWJKy1D"
+         class="px-6 py-3 bg-blue-600 hover:bg-blue-800 rounded-xl shadow-lg hover:scale-105 transition transform">
+        💬 SUPPORT CHANNEL
+      </a>
+    </div>
+  </section>
 
-<footer>© 2025 CYBER FREEDOM MINI BOT | Created By Dark Tech Zone Team</footer>
+ 
+  <footer class="text-center py-6 bg-black/60 mt-10">
+    <p class="text-gray-400">© 2025 FREEDOM MINIBOT | Created by <span class="text-purple-400">DARK-TECH-ZONE</span></p>
+  </footer>
 
-<script>
-const canvas=document.createElement('canvas');document.body.appendChild(canvas);
-const ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-const stars=[];for(let i=0;i<150;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2+0.3,s:Math.random()*0.05+0.02})}
-function animateStars(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let i=0;i<stars.length;i++){let s=stars[i];ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,2*Math.PI);ctx.fillStyle='white';ctx.fill();s.y-=s.s;if(s.y<0){s.y=canvas.height;s.x=Math.random()*canvas.width;}}requestAnimationFrame(animateStars);}
-animateStars();
-window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-</script>
+  
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script>
+    
+    let lastScrollY = window.scrollY;
+    const header = document.getElementById("mainHeader");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > lastScrollY) {
+        header.classList.remove("header-visible");
+        header.classList.add("header-hidden");
+      } else {
+        header.classList.remove("header-hidden");
+        header.classList.add("header-visible");
+      }
+      lastScrollY = window.scrollY;
+    });
 
+    
+    ScrollReveal().reveal('.animate-fadeInUp', { delay: 300, duration: 1000, origin: 'bottom', distance: '60px' });
+    ScrollReveal().reveal('.card', { delay: 200, duration: 1000, origin: 'bottom', distance: '40px', interval: 200 });
+
+    
+    const music = document.getElementById("bg-music");
+    const musicBtn = document.getElementById("musicBtn");
+    let isPlaying = false;
+
+    function tryPlayMusic() {
+      music.play().then(() => {
+        isPlaying = true;
+        musicBtn.textContent = "🔊 Music On";
+      }).catch(() => {
+        console.log("Autoplay blocked, wait for user action");
+      });
+      document.removeEventListener("click", tryPlayMusic);
+      document.removeEventListener("scroll", tryPlayMusic);
+    }
+    document.addEventListener("click", tryPlayMusic);
+    document.addEventListener("scroll", tryPlayMusic);
+
+    
+    musicBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        music.pause();
+        isPlaying = false;
+        musicBtn.textContent = "🔇 Music Off";
+      } else {
+        music.play();
+        isPlaying = true;
+        musicBtn.textContent = "🔊 Music On";
+      }
+    });
+  </script>
 </body>
 </html>
